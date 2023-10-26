@@ -16,12 +16,6 @@ class LedService {
   closeAll(ledNum) {
     return http.post(`/led/closeAll`, { ledNum: ledNum });
   }
-  saveFavouriteLed(data) {
-    return http.post("/led/saveFavourite", data);
-  }
-  deleteFavouriteLed(type) {
-    return http.delete(`/led/deleteFavourite/${type}`);
-  }
 }
 
 export default new LedService();

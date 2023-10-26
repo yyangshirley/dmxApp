@@ -16,12 +16,12 @@
 
               <v-card-text>
                 Pixels: <span>{{ inputNumber }}</span>
-                <!-- pixels number 25 -->
+                <!-- pixels number 1-100 -->
                 <v-slider
                   v-model="inputNumber"
                   track-color="grey"
                   min="1"
-                  max="25"
+                  max="100"
                   :step="1"
                 >
                   <template v-slot:prepend>
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       show: false,
-      inputNumber: 1,
+      inputNumber: 25,
       ifInput: false,
       rules: [
         (value) => !!value || "Required.",
@@ -91,6 +91,16 @@ export default {
     },
     to(num) {
       this.$store.commit("updateLight", num);
+      LedService.getFavouriteLed()
+        .then((res) => {
+          if (res.data.flag == "SUCCESS") {
+            this.$store.commit("updateFavouriteList", res.data.data);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
       this.$router.push(`/mono`);
     },
   },

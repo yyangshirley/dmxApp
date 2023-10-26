@@ -1,7 +1,4 @@
 {
-  "type": [
-    "test",
-    "sunshine",
-    "blue"
-  ]
+  "name": "favourite",
+  "type": ["christmas1", "christmas2", "halloween", "chineseNewYear"]
 }

@@ -3,12 +3,15 @@
     <HeaderVue title="Favourite" />
   </div>
   <div class="container">
-    <v-card v-for="type of typeList" :key="type" style="margin: 10px">
-      <v-card-actions>
+    <v-item-group
+      v-for="type of typeList"
+      :key="type"
+      class="led-group d-flex justify-sm-space-between px-6 pt-2 pb-6"
+    >
+      <v-item>
         <v-btn @click="changeType(type)">{{ type }} </v-btn>
-        <v-btn color="orange" @click="deleteType(type)">Delete</v-btn>
-      </v-card-actions>
-    </v-card>
+      </v-item>
+    </v-item-group>
   </div>
   <div class="footer">
     <FooterVue />
@@ -33,20 +36,9 @@ export default {
     this.ledNum = this.$store.state.pixelNum
       ? this.$store.state.pixelNum
       : this.ledNum;
-    this.getFavouriteLed();
+    this.typeList = this.$store.state.favouriteList;
   },
   methods: {
-    getFavouriteLed() {
-      LedService.getFavouriteLed()
-        .then((res) => {
-          if (res.data.flag == "SUCCESS") {
-            this.typeList = res.data.data;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
     changeType(type) {
       const data = {
         type: type,
@@ -56,19 +48,6 @@ export default {
         .then((res) => {
           if (res.data.flag == "SUCCESS") {
             // console.log(res.data);
-          } else {
-            console.log(res.data);
-          }
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-    deleteType(type) {
-      LedService.deleteFavouriteLed(type)
-        .then((res) => {
-          if (res.data.flag == "SUCCESS") {
-            this.getFavouriteLed();
           } else {
             console.log(res.data);
           }
